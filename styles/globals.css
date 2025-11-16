@@ -1,0 +1,41 @@
+/*
+  Global styles
+  - Cascadia Code imported from a CDN and set as default font
+  - Tailwind directives
+  - Custom cursor and subtle glassmorphism utilities
+
+  Note: If the CDN for Cascadia Code is blocked, you can download the font and @font-face it locally.
+*/
+
+@import url('https://fonts.cdnfonts.com/css/cascadia-code');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  --bg-1: #000000;
+  --bg-2: #0f1113;
+}
+
+html,body,#__next{
+  height:100%;
+}
+
+body{
+  @apply bg-black text-white antialiased;
+  font-family: 'Cascadia Code', ui-monospace, SFMono-Regular, Menlo, monospace;
+  background: linear-gradient(180deg,var(--bg-1),var(--bg-2));
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* custom minimal cursor: thin white ring that follows pointer */
+.cursor-ring{ position: fixed; width: 28px; height: 28px; border-radius: 9999px; border: 1px solid rgba(255,255,255,0.9); pointer-events: none; transform: translate(-50%,-50%); mix-blend-mode: normal; transition: transform .12s cubic-bezier(.22,.9,.34,1), width .18s ease, height .18s ease, opacity .12s ease; z-index: 9999 }
+html,body{ cursor: none }
+
+/* glass & soft border utility (used via classes in components) */
+.glass { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); backdrop-filter: blur(8px) }
+
+/* smooth easing for animations */
+.smooth { transition-timing-function: cubic-bezier(.22,.9,.34,1); transition-duration: .35s }
