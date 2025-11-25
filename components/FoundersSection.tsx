@@ -35,7 +35,7 @@ export default function FoundersSection(){
 
       <div className="mt-8 max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {founders.map((f, i) => (
-          <FounderCard key={f.name} name={f.name} role={f.role} bio={f.bio} image={f.image} linkedin={f.linkedin} twitter={f.twitter} />
+          <FounderCard key={f.name} name={f.name} role={f.role} bio={f.bio} image={f.image} linkedin={f.linkedin} />
         ))}
       </div>
     </section>
