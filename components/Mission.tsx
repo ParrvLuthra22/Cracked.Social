@@ -6,7 +6,7 @@ export default function Mission(){
       <div className="max-w-4xl mx-auto">
         <div className="border-t border-white/6 pt-8">
           <h2 className="text-2xl font-medium">Mission</h2>
-          <p className="mt-4 text-gray-300">Our mission is to make the founder journey less lonely and more effective — by fostering a small, active network where clarity, feedback, and execution come first.</p>
+          <p className="mt-4 text-gray-300">Our mission is to create the most valuable founder community in India — a tight-knit network of 100 serious early-stage founders who help each other ship faster, validate better, and scale smarter. We believe the best way to learn entrepreneurship is by doing it alongside other builders who share honest feedback and real experience.</p>
         </div>
       </div>
     </motion.section>

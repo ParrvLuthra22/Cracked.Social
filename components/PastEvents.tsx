@@ -2,9 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const samplePast = [
-  { title: 'Founders Happy Hour', date: 'Nov 2025' },
-  { title: 'Launch Night', date: 'Oct 2025' },
-  { title: 'Beta Meetup', date: 'Sep 2025' }
+  { title: 'Founders Meetup', date: 'Nov 2025' },
 ]
 
 export default function PastEvents(){

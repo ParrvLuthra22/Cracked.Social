@@ -4,17 +4,25 @@ type FounderCardProps = {
   name: string
   role: string
   bio: string
+  image?: string
   linkedin?: string
   twitter?: string
 }
 
-export default function FounderCard({ name, role, bio, linkedin, twitter }: FounderCardProps){
+export default function FounderCard({ name, role, bio, image, linkedin, twitter }: FounderCardProps){
   return (
     <motion.article whileHover={{ y: -8 }} initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.45 }} className="glass p-6 rounded-2xl border border-white/6 shadow-md">
       <div className="flex flex-col items-center text-center gap-4">
         <div className="w-28 h-28 rounded-full bg-white/6 flex items-center justify-center overflow-hidden border border-white/8" style={{boxShadow: '0 6px 20px rgba(255,255,255,0.03)'}}>
-          {/* circular grayscale placeholder */}
-          <div className="w-full h-full bg-gradient-to-br from-white/8 to-white/4 flex items-center justify-center text-sm text-gray-300">Photo</div>
+          {image ? (
+            <img 
+              src={image} 
+              alt={`${name} profile`}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-white/8 to-white/4 flex items-center justify-center text-sm text-gray-300">Photo</div>
+          )}
         </div>
 
         <div>

@@ -7,9 +7,9 @@ import Footer from '../components/Footer'
 
 export default function EventsPage(){
   const upcoming = [
-    { name: 'Skyscraper Hackathon', date: 'Jun 12-14, 2026', description: 'A vertical challenge for teams to build scalable solutions.' },
-    { name: 'Founders Roundtable', date: 'Jul 01, 2026', description: 'Invite-only discussions with experienced founders.' },
-    { name: 'Product Teardown', date: 'Aug 04, 2026', description: 'Community-led product reviews and feedback.' }
+    { name: 'Upcoming Hackathon', date: 'Coming Soon', description: 'A vertical challenge for teams to build scalable solutions.' },
+    { name: 'Founders Roundtable', date: 'Coming Soon', description: 'Invite-only discussions with experienced founders.' },
+    { name: 'Product Teardown', date: 'Coming Soon', description: 'Community-led product reviews and feedback.' }
   ]
 
   return (

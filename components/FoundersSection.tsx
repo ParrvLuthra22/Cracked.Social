@@ -4,20 +4,24 @@ import { motion } from 'framer-motion'
 const founders = [
   {
     name: 'Parrv Luthra',
-    role: 'Co-founder',
-    bio: 'Builds products that ship fast. Loves simple interfaces and brutal honesty.',
-    linkedin: 'https://www.linkedin.com'
+    role: 'Co-founder & CEO',
+    bio: 'a builder at heart. Always loved creating things products, ideas, communities. building is a lot more meaningful when you do it with the right people around you. obsessed with startups, tech, and just watching people grow.',
+    image: '/images/parrv.jpg', // Add actual image path
+    linkedin: 'https://www.linkedin.com/in/parrv-luthra-73372b322/',
   },
   {
     name: 'Suryansh Nandwani',
-    role: 'Partner',
-    bio: 'Organizes events and brings people together to do actual work.',
-    twitter: 'https://twitter.com'
+    role: 'Co-founder & COO',
+    bio: 'Community builder and event organizer with experience running startup meetups in Delhi. Expert at bringing the right people together and facilitating meaningful connections between founders.',
+    image: '/images/suryansh.jpg', // Add actual image path
+    linkedin: 'https://www.linkedin.com/in/suryanshnandwani/'
   },
   {
     name: 'Khyati Chaturvedi',
-    role: 'Product Lead',
-    bio: 'Focuses on product-market clarity and early-stage experiments.'
+    role: 'Head of Product',
+    bio: 'Product strategist focused on early-stage market validation and user research. Helps founders identify product-market fit signals and iterate quickly based on real user feedback.',
+    image: '/images/khyati.jpg', // Add actual image path
+    linkedin: "https://www.linkedin.com/in/khyati-chaturvedi-b50349389/"
   }
 ]
 
@@ -31,7 +35,7 @@ export default function FoundersSection(){
 
       <div className="mt-8 max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {founders.map((f, i) => (
-          <FounderCard key={f.name} name={f.name} role={f.role} bio={f.bio} linkedin={f.linkedin} twitter={f.twitter} />
+          <FounderCard key={f.name} name={f.name} role={f.role} bio={f.bio} image={f.image} linkedin={f.linkedin} twitter={f.twitter} />
         ))}
       </div>
     </section>

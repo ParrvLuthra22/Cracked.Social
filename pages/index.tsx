@@ -21,7 +21,14 @@ export default function Home() {
                 <h1 className="text-4xl lg:text-6xl font-semibold tracking-tight">Where Founders Rise.</h1>
                 <p className="mt-4 text-lg text-gray-300">A community built for the bold.</p>
                 <div className="mt-8">
-                  <a href="#join" className="inline-block bg-white text-black px-6 py-3 rounded-md backdrop-blur-md shadow-md transition-transform hover:-translate-y-1">Join the Community</a>
+                  <a 
+                    href="https://forms.gle/xrK1XjivvmRp1f2d9" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-block bg-white text-black px-6 py-3 rounded-md backdrop-blur-md shadow-md transition-transform hover:-translate-y-1"
+                  >
+                    Join the Community
+                  </a>
                 </div>
               </div>
 
@@ -44,7 +51,7 @@ export default function Home() {
 
           <section className="container mx-auto px-6 lg:px-20 py-24" id="skyscraper">
             <div className="max-w-4xl mx-auto text-center">
-              <h3 className="text-xl font-medium">The Skyscraper Hackathon</h3>
+              <h3 className="text-xl font-medium">The Upcoming Hackathon</h3>
               <p className="mt-4 text-gray-400">(Placeholder for the big reveal)</p>
             </div>
           </section>

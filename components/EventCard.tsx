@@ -26,7 +26,7 @@ export default function EventCard({ name, date, description, img }: EventCardPro
       </div>
 
       <div className="mt-4 flex justify-end">
-        <button className="px-4 py-2 bg-white text-black rounded-md text-sm smooth">Register</button>
+        <button className="px-4 py-2 bg-white text-black rounded-md text-sm smooth">Coming Soon</button>
       </div>
     </motion.article>
   )
