@@ -6,21 +6,21 @@ const founders = [
     name: 'Parrv Luthra',
     role: 'Co-founder & CEO',
     bio: 'a builder at heart. Always loved creating things products, ideas, communities. building is a lot more meaningful when you do it with the right people around you. obsessed with startups, tech, and just watching people grow.',
-    image: '/images/parrv.jpg', // Add actual image path
+    image: '/images/Parrv.jpg', // Add actual image path
     linkedin: 'https://www.linkedin.com/in/parrv-luthra-73372b322/',
   },
   {
     name: 'Suryansh Nandwani',
     role: 'Co-founder & COO',
     bio: 'Community builder and event organizer with experience running startup meetups in Delhi. Expert at bringing the right people together and facilitating meaningful connections between founders.',
-    image: '/images/suryansh.jpg', // Add actual image path
+    image: '/images/Suryansh.jpg', // Add actual image path
     linkedin: 'https://www.linkedin.com/in/suryanshnandwani/'
   },
   {
     name: 'Khyati Chaturvedi',
     role: 'Head of Product',
     bio: 'Product strategist focused on early-stage market validation and user research. Helps founders identify product-market fit signals and iterate quickly based on real user feedback.',
-    image: '/images/khyati.jpg', // Add actual image path
+    image: '/images/Khyati.jpg', // Add actual image path
     linkedin: "https://www.linkedin.com/in/khyati-chaturvedi-b50349389/"
   }
 ]
