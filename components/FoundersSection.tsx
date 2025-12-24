@@ -10,18 +10,18 @@ const founders = [
     linkedin: 'https://www.linkedin.com/in/parrv-luthra-73372b322/',
   },
   {
-    name: 'Suryansh Nandwani',
-    role: 'Co-founder & COO',
-    bio: 'Community builder and event organizer with experience running startup meetups in Delhi. Expert at bringing the right people together and facilitating meaningful connections between founders.',
-    image: '/images/Suryansh.jpg', // Add actual image path
-    linkedin: 'https://www.linkedin.com/in/suryanshnandwani/'
-  },
-  {
     name: 'Khyati Chaturvedi',
-    role: 'Head of Product',
+    role: 'Co Founder and CMO',
     bio: 'Product strategist focused on early-stage market validation and user research. Helps founders identify product-market fit signals and iterate quickly based on real user feedback.',
     image: '/images/Khyati.jpg', // Add actual image path
     linkedin: "https://www.linkedin.com/in/khyati-chaturvedi-b50349389/"
+  },
+  {
+    name: 'Suryansh Nandwani',
+    role: 'Head of Product',
+    bio: 'Community builder and event organizer with experience running startup meetups in Delhi. Expert at bringing the right people together and facilitating meaningful connections between founders.',
+    image: '/images/Suryansh.jpg', // Add actual image path
+    linkedin: 'https://www.linkedin.com/in/suryanshnandwani/'
   }
 ]
 
