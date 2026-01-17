@@ -1,42 +1,56 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-const CountdownUnit = ({ value, label }: { value: number, label: string }) => (
-  <div className="flex flex-col items-center mx-2 sm:mx-4">
-    <div className="relative bg-[#0a0a0a] w-16 h-20 sm:w-20 sm:h-24 rounded-lg flex items-center justify-center border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.05)] overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 pointer-events-none"></div>
-      <AnimatePresence mode='popLayout'>
-        <motion.span 
-          key={value}
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -20, opacity: 0 }}
-          transition={{ duration: 0.3, ease: "backOut" }}
-          className="text-3xl sm:text-4xl font-bold font-mono text-white z-10 absolute"
-        >
-          {value.toString().padStart(2, '0')}
-        </motion.span>
-      </AnimatePresence>
-      {/* Flip line */}
-      <div className="absolute w-full h-[1px] bg-black/40 top-1/2 z-20"></div>
+const CountdownUnit = ({ value, label }: { value: number, label: string }) => {
+  const [prevValue, setPrevValue] = useState(value)
+  const [flip, setFlip] = useState(false)
+
+  useEffect(() => {
+    if (value !== prevValue) {
+      setFlip(true)
+      const timer = setTimeout(() => {
+        setFlip(false)
+        setPrevValue(value)
+      }, 600)
+      return () => clearTimeout(timer)
+    }
+  }, [value, prevValue])
+
+  return (
+    <div className="countdown-item flex flex-col items-center mx-2 sm:mx-4 perspective-600">
+      <div className={`countdown-value relative w-20 h-24 sm:w-24 sm:h-32 bg-gradient-to-b from-[#1a1a1a] via-[#0a0a0a] to-black border border-white/10 rounded-2xl flex items-center justify-center text-4xl sm:text-5xl font-black text-white shadow-[0_10px_0_#050505,0_15px_30px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.1)] transform-style-3d transition-transform duration-600 ${flip ? 'animate-flip' : ''}`}>
+        {/* Top Half */}
+        <div className="absolute inset-x-0 top-0 h-1/2 overflow-hidden bg-[#151515] rounded-t-2xl z-0 flex items-end justify-center">
+          <span className="translate-y-1/2">{value.toString().padStart(2, '0')}</span>
+        </div>
+        {/* Bottom Half */}
+        <div className="absolute inset-x-0 bottom-0 h-1/2 overflow-hidden bg-[#0a0a0a] rounded-b-2xl z-0 flex items-start justify-center">
+          <span className="-translate-y-1/2">{value.toString().padStart(2, '0')}</span>
+        </div>
+
+        {/* Flip Animation Line */}
+        <div className="absolute inset-x-0 top-1/2 h-px bg-black opacity-50 z-20"></div>
+
+        <span className="relative z-10 opacity-0">{value.toString().padStart(2, '0')}</span>
+      </div>
+      <span className="countdown-label mt-4 text-xs sm:text-sm text-[#666] font-bold tracking-[0.2em] uppercase">{label}</span>
     </div>
-    <span className="text-xs text-gray-500 mt-3 uppercase tracking-wider font-medium">{label}</span>
-  </div>
-)
+  )
+}
 
 export default function HackathonReveal() {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
 
   useEffect(() => {
-    // Target date: March 15, 2025
-    const targetDate = new Date('2025-03-15T09:00:00').getTime()
+    // Target date: March 1, 2026
+    const targetDate = new Date('2026-03-01T00:00:00').getTime()
 
-    const interval = setInterval(() => {
+    const updateTimer = () => {
       const now = new Date().getTime()
       const distance = targetDate - now
 
       if (distance < 0) {
-        clearInterval(interval)
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 })
         return
       }
 
@@ -46,56 +60,63 @@ export default function HackathonReveal() {
         minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
         seconds: Math.floor((distance % (1000 * 60)) / 1000)
       })
-    }, 1000)
+    }
+
+    const interval = setInterval(updateTimer, 1000)
+    updateTimer() // initial call
 
     return () => clearInterval(interval)
   }, [])
 
+  const styles = `
+    .countdown-section {
+        background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.02), transparent 50%), radial-gradient(circle at 70% 50%, rgba(255,255,255,0.02), transparent 50%), #000;
+    }
+    .countdown-container {
+        background: linear-gradient(145deg, #0d0d0d, #000);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+    .perspective-600 { perspective: 600px; }
+    .transform-style-3d { transform-style: preserve-3d; }
+    
+    @keyframes flip {
+      0% { transform: rotateX(0); }
+      50% { transform: rotateX(-90deg); }
+      100% { transform: rotateX(0); }
+    }
+    .animate-flip { animation: flip 0.6s ease-in-out; }
+  `
+
   return (
-    <section className="relative w-full py-24 bg-[#000000] overflow-hidden border-l-4 border-white my-0">
-      {/* Noise texture overlay */}
-      <div className="absolute inset-0 opacity-[0.05] pointer-events-none mix-blend-overlay" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
-      
-      <motion.div 
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
-        className="container mx-auto px-6 lg:px-20 relative z-10"
-      >
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-          
-          <div className="w-full lg:w-1/2 text-center lg:text-left">
-            <motion.div 
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h2 className="text-3xl md:text-5xl font-bold text-white mb-3 tracking-tight">The 48-Hour Founder Sprint</h2>
-              <p className="text-xl text-gray-400 mb-6 font-light tracking-wide">Build, Ship, Win - March 2025</p>
-              
-              <p className="text-gray-300 mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed text-lg">
-                Turn your idea into reality. Build alongside fellow founders, get mentorship, compete for prizes.
-              </p>
+    <section className="countdown-section relative w-full py-32 overflow-hidden">
+      <style>{styles}</style>
 
-              <button className="px-8 py-3 border border-white text-white bg-transparent rounded hover:bg-white hover:text-black transition-all duration-300 font-medium text-sm tracking-widest uppercase">
-                Learn More
-              </button>
-            </motion.div>
+      <div className="container mx-auto px-6 lg:px-20 relative z-10">
+        <div className="countdown-container max-w-5xl mx-auto rounded-[32px] border border-white/10 p-10 md:p-16 text-center transform hover:scale-[1.01] transition-transform duration-500">
+
+          <div className="inline-block mb-6 px-4 py-1 rounded-full border border-white/20 bg-white/5 text-gray-300 text-sm font-medium tracking-wider uppercase">
+            Upcoming Event
           </div>
 
-          <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
-            <div className="flex flex-wrap justify-center">
-              <CountdownUnit value={timeLeft.days} label="Days" />
-              <CountdownUnit value={timeLeft.hours} label="Hours" />
-              <CountdownUnit value={timeLeft.minutes} label="Mins" />
-              <CountdownUnit value={timeLeft.seconds} label="Secs" />
-            </div>
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 tracking-tight">The 48-Hour Founder Sprint</h2>
+          <p className="text-xl text-gray-400 mb-12 font-light max-w-2xl mx-auto">
+            Build, Ship, Win. Join us in March 2026 to turn your idea into reality alongside fellow founders.
+          </p>
+
+          <div className="flex flex-wrap justify-center gap-4 md:gap-8">
+            <CountdownUnit value={timeLeft.days} label="Days" />
+            <CountdownUnit value={timeLeft.hours} label="Hours" />
+            <CountdownUnit value={timeLeft.minutes} label="Mins" />
+            <CountdownUnit value={timeLeft.seconds} label="Secs" />
           </div>
 
+          <div className="mt-12">
+            <button className="px-10 py-4 bg-white text-black font-bold rounded-full text-lg hover:bg-gray-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+              Register Now
+            </button>
+          </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   )
 }

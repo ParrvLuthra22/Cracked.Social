@@ -6,140 +6,98 @@ export default function Hero3D() {
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
-
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
     let width = canvas.width = canvas.parentElement?.clientWidth || window.innerWidth
     let height = canvas.height = canvas.parentElement?.clientHeight || window.innerHeight
 
-    const particles: Particle[] = []
-    const particleCount = 80 // Density
-    const connectionDistance = 100
-    const mouseDistance = 150
+    let time = 0
+    const lines: any[] = []
+    const gap = 40
 
-    let mouse = { x: -1000, y: -1000 }
-
-    class Particle {
-      x: number
-      y: number
-      vx: number
-      vy: number
-      size: number
-      baseX: number
-      baseY: number
-
-      constructor() {
-        this.x = Math.random() * width
-        this.y = Math.random() * height
-        this.vx = (Math.random() - 0.5) * 0.5
-        this.vy = (Math.random() - 0.5) * 0.5
-        this.size = Math.random() * 2 + 1
-        this.baseX = this.x
-        this.baseY = this.y
-      }
-
-      update() {
-        this.x += this.vx
-        this.y += this.vy
-
-        // Bounce off edges
-        if (this.x < 0 || this.x > width) this.vx *= -1
-        if (this.y < 0 || this.y > height) this.vy *= -1
-
-        // Mouse interaction
-        const dx = mouse.x - this.x
-        const dy = mouse.y - this.y
-        const distance = Math.sqrt(dx * dx + dy * dy)
-
-        if (distance < mouseDistance) {
-          const forceDirectionX = dx / distance
-          const forceDirectionY = dy / distance
-          const force = (mouseDistance - distance) / mouseDistance
-          const directionX = forceDirectionX * force * 2 // Repulsion strength
-          const directionY = forceDirectionY * force * 2
-          this.vx -= directionX * 0.05
-          this.vy -= directionY * 0.05
-        }
-      }
-
-      draw() {
-        if (!ctx) return
-        ctx.beginPath()
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)'
-        ctx.fill()
-      }
-    }
-
+    // Create grid lines
     const init = () => {
-      particles.length = 0
-      for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle())
+      lines.length = 0
+      const cols = Math.ceil(width / gap)
+      const rows = Math.ceil(height / gap)
+
+      for (let y = 0; y <= rows; y++) {
+        for (let x = 0; x <= cols; x++) {
+          lines.push({
+            x: x * gap,
+            y: y * gap,
+            baseX: x * gap,
+            baseY: y * gap
+          })
+        }
       }
     }
 
     const animate = () => {
-      ctx.clearRect(0, 0, width, height)
-      
-      // Update and draw particles
-      particles.forEach(particle => {
-        particle.update()
-        particle.draw()
-      })
+      ctx.fillStyle = 'rgba(0,0,0,0.1)' // Trail effect
+      ctx.fillRect(0, 0, width, height)
 
-      // Draw connections
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x
-          const dy = particles[i].y - particles[j].y
-          const distance = Math.sqrt(dx * dx + dy * dy)
+      ctx.beginPath()
+      ctx.strokeStyle = '#333'
+      ctx.lineWidth = 1
 
-          if (distance < connectionDistance) {
-            ctx.beginPath()
-            ctx.strokeStyle = `rgba(255, 255, 255, ${0.2 * (1 - distance / connectionDistance)})`
-            ctx.lineWidth = 1
-            ctx.moveTo(particles[i].x, particles[i].y)
-            ctx.lineTo(particles[j].x, particles[j].y)
-            ctx.stroke()
-          }
+      time += 0.02
+
+      // Update and draw warped grid
+      for (let i = 0; i < lines.length; i++) {
+        const p = lines[i]
+
+        // Warp calculation
+        const dist = Math.sqrt(Math.pow(p.x - width / 2, 2) + Math.pow(p.y - height / 2, 2))
+        const angle = Math.atan2(p.y - height / 2, p.x - width / 2)
+
+        // Dynamic sine wave warp
+        const warp = Math.sin(dist * 0.01 - time) * 20
+
+        const tx = p.baseX + Math.cos(angle) * warp
+        const ty = p.baseY + Math.sin(angle) * warp
+
+        if (i > 0 && i % (Math.ceil(width / gap) + 1) !== 0) {
+          // Draw horizontal connections
+          ctx.fillStyle = `rgba(255,255,255, ${0.1 + (warp / 20) * 0.5})`
+          ctx.fillRect(tx, ty, 2, 2)
         }
       }
+
+      // Draw scanline
+      const scanY = (time * 100) % height
+      ctx.beginPath()
+      ctx.moveTo(0, scanY)
+      ctx.lineTo(width, scanY)
+      ctx.strokeStyle = 'rgba(255,255,255,0.05)'
+      ctx.stroke()
 
       requestAnimationFrame(animate)
     }
 
-    const handleResize = () => {
-      if (!canvas.parentElement) return
-      width = canvas.width = canvas.parentElement.clientWidth
-      height = canvas.height = canvas.parentElement.clientHeight
-      init()
-    }
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect()
-      mouse.x = e.clientX - rect.left
-      mouse.y = e.clientY - rect.top
-    }
-
-    const handleMouseLeave = () => {
-      mouse.x = -1000
-      mouse.y = -1000
-    }
-
-    window.addEventListener('resize', handleResize)
-    canvas.addEventListener('mousemove', handleMouseMove)
-    canvas.addEventListener('mouseleave', handleMouseLeave)
-    
+    window.addEventListener('resize', init)
     init()
     animate()
 
-    return () => {
-      window.removeEventListener('resize', handleResize)
-      canvas.removeEventListener('mousemove', handleMouseMove)
-      canvas.removeEventListener('mouseleave', handleMouseLeave)
-    }
+    return () => window.removeEventListener('resize', init)
   }, [])
 
-  return <canvas ref={canvasRef} className="w-full h-full block" />
+  return (
+    <div className="relative w-full h-[80vh] flex items-center justify-center overflow-hidden bg-black">
+      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full opacity-60" />
+
+      <div className="relative z-10 text-center pointer-events-none mix-blend-exclusion">
+        <h1 className="text-7xl md:text-9xl font-bold tracking-tighter text-white mb-6 uppercase">
+          Where<br />Founders Rise.
+        </h1>
+        <p className="text-xl md:text-2xl text-white/60 tracking-[0.2em] uppercase">
+          A Community Built for the Bold.
+        </p>
+      </div>
+
+      {/* Vignette */}
+      <div className="absolute inset-0 bg-radial-gradient from-transparent to-black pointer-events-none" />
+    </div>
+  )
 }

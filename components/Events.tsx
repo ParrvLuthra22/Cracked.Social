@@ -4,7 +4,8 @@ import React, { useRef } from 'react'
 const events = [
   {
     title: 'Founder Fireside Chats',
-    description: 'Monthly intimate conversations with successful founders sharing real insights'
+    description: 'Monthly intimate conversations with successful founders sharing real insights',
+    image: '/images/fireside-chat.jpg'
   },
   {
     title: 'Build-in-Public Workshops',
@@ -16,7 +17,7 @@ const events = [
   }
 ]
 
-function TiltCard({ title, description }: { title: string, description: string }) {
+function TiltCard({ title, description, image }: { title: string, description: string, image?: string }) {
   const ref = useRef<HTMLDivElement>(null)
 
   const x = useMotionValue(0)
@@ -57,11 +58,22 @@ function TiltCard({ title, description }: { title: string, description: string }
       className="relative h-full"
     >
       <div 
-        className="h-full p-8 rounded-xl bg-gradient-to-br from-[#1a1a1a] to-[#2a2a2a] border border-[#3a3a3a] transition-all duration-300 hover:border-[#6a6a6a] hover:shadow-[0_0_20px_rgba(255,255,255,0.05)] hover:-translate-y-2 group"
+        className="h-full rounded-xl bg-gradient-to-br from-[#1a1a1a] to-[#2a2a2a] border border-[#3a3a3a] transition-all duration-300 hover:border-[#6a6a6a] hover:shadow-[0_0_20px_rgba(255,255,255,0.05)] hover:-translate-y-2 group overflow-hidden"
         style={{ transform: "translateZ(20px)" }}
       >
-        <h4 className="text-xl font-semibold text-white mb-3 group-hover:[text-shadow:0_0_20px_rgba(255,255,255,0.5)] transition-all">{title}</h4>
-        <p className="text-[#a0a0a0] text-sm leading-relaxed">{description}</p>
+        {image && (
+          <div className="h-40 overflow-hidden">
+            <img 
+              src={image} 
+              alt={title}
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            />
+          </div>
+        )}
+        <div className="p-8">
+          <h4 className="text-xl font-semibold text-white mb-3 group-hover:[text-shadow:0_0_20px_rgba(255,255,255,0.5)] transition-all">{title}</h4>
+          <p className="text-[#a0a0a0] text-sm leading-relaxed">{description}</p>
+        </div>
       </div>
     </motion.div>
   )
@@ -71,7 +83,7 @@ export default function Events(){
   return (
     <div id="events" className="grid gap-6 grid-cols-1 md:grid-cols-3" style={{ perspective: 1000 }}>
       {events.map((event, i) => (
-        <TiltCard key={i} title={event.title} description={event.description} />
+        <TiltCard key={i} title={event.title} description={event.description} image={event.image} />
       ))}
     </div>
   )
