@@ -22,7 +22,7 @@ export default function Footer() {
           <div className="grid grid-cols-2 gap-8 text-lg">
             <div className="space-y-4">
               <h4 className="text-sm uppercase tracking-widest text-[#666] mb-6">Explore</h4>
-              {['Events', 'Community', 'Stories', 'Manifesto'].map(item => (
+              {['Events', 'Community', 'Stories'].map(item => (
                 <Link key={item} href={`/${item.toLowerCase()}`} className="block text-gray-400 hover:text-white transition-colors hover:translate-x-2 duration-300">
                   {item}
                 </Link>
@@ -30,11 +30,18 @@ export default function Footer() {
             </div>
             <div className="space-y-4">
               <h4 className="text-sm uppercase tracking-widest text-[#666] mb-6">Socials</h4>
-              {['Twitter', 'LinkedIn', 'Instagram', 'Discord'].map(item => (
-                <a key={item} href="#" className="block text-gray-400 hover:text-white transition-colors hover:translate-x-2 duration-300">
-                  {item}
-                </a>
-              ))}
+              <a href="https://x.com/CrackedotSocial" target="_blank" rel="noopener noreferrer" className="block text-gray-400 hover:text-white transition-colors hover:translate-x-2 duration-300">
+                Twitter
+              </a>
+              <a href="https://linkedin.com/company/cracked-social/" target="_blank" rel="noopener noreferrer" className="block text-gray-400 hover:text-white transition-colors hover:translate-x-2 duration-300">
+                LinkedIn
+              </a>
+              <a href="https://www.instagram.com/cracked.social/" target="_blank" rel="noopener noreferrer" className="block text-gray-400 hover:text-white transition-colors hover:translate-x-2 duration-300">
+                Instagram
+              </a>
+              <a href="https://www.youtube.com/@Cracked.Social" target="_blank" rel="noopener noreferrer" className="block text-gray-400 hover:text-white transition-colors hover:translate-x-2 duration-300">
+                YouTube
+              </a>
             </div>
           </div>
         </div>
