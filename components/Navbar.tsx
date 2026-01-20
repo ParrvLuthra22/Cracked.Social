@@ -51,7 +51,7 @@ export default function Navbar() {
               <Link href="/about" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">About</Link>
               <Link href="/events" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">Events</Link>
               <Link href="/community" className="text-sm font-medium text-gray-300 hover:text-white transition-colors">Community</Link>
-              <Link href="/join" className="text-sm font-semibold text-white bg-white/10 px-4 py-1.5 rounded-full hover:bg-white hover:text-black transition-all">Join</Link>
+              <a href="https://forms.gle/xrK1XjivvmRp1f2d9" target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-white bg-white/10 px-4 py-1.5 rounded-full hover:bg-white hover:text-black transition-all">Join</a>
             </motion.div>
           )}
         </AnimatePresence>

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 
-export default function Vision(){
+export default function Vision() {
   return (
     <motion.section initial={{ opacity: 0, y: 6 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="py-12">
       <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
@@ -10,8 +10,8 @@ export default function Vision(){
         </div>
 
         <div className="h-48 rounded-lg overflow-hidden border border-white/10">
-          <img 
-            src="/images/vision-image.jpg" 
+          <img
+            src="/images/vision_cracked.social.png"
             alt="Our vision - founders collaborating and building together"
             className="w-full h-full object-cover"
             onError={(e) => {
