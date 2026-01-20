@@ -4,12 +4,13 @@ import FeaturedEvent from '../components/FeaturedEvent'
 import EventCard from '../components/EventCard'
 import PastEvents from '../components/PastEvents'
 import Footer from '../components/Footer'
+import Image from 'next/image'
 
-export default function EventsPage(){
+export default function EventsPage() {
   const upcoming = [
-    { name: 'Upcoming Hackathon', date: 'Coming Soon', description: 'A vertical challenge for teams to build scalable solutions.' },
-    { name: 'Founders Roundtable', date: 'Coming Soon', description: 'Invite-only discussions with experienced founders.' },
-    { name: 'Product Teardown', date: 'Coming Soon', description: 'Community-led product reviews and feedback.' }
+    { name: 'Upcoming Hackathon', date: 'Coming Soon', description: 'A vertical challenge for teams to build scalable solutions.', image: "/images/events/hackathon.png" },
+    { name: 'Founders Roundtable', date: 'Coming Soon', description: 'Invite-only discussions with experienced founders.', image: "/images/events/Founders_Roundtable.png" },
+    { name: 'Product Teardown', date: 'Coming Soon', description: 'Community-led product reviews and feedback.', image: "/images/events/product_teardown.png" }
   ]
 
   return (
@@ -34,7 +35,7 @@ export default function EventsPage(){
             <h2 className="text-2xl font-medium">Upcoming Events</h2>
             <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
               {upcoming.map((e, i) => (
-                <EventCard key={i} name={e.name} date={e.date} description={e.description} />
+                <EventCard key={i} name={e.name} date={e.date} description={e.description} img={e.image} />
               ))}
             </div>
           </section>

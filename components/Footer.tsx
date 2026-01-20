@@ -13,16 +13,16 @@ export default function Footer() {
               Ready to <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-600">build?</span>
             </h2>
-            <button className="group relative px-8 py-4 bg-white text-black rounded-full font-bold text-lg overflow-hidden transition-transform hover:scale-105">
+            <a href="https://forms.gle/xrK1XjivvmRp1f2d9" target="_blank" rel="noopener noreferrer" className="inline-block group relative px-8 py-4 bg-white text-black rounded-full font-bold text-lg overflow-hidden transition-transform hover:scale-105">
               <span className="relative z-10">Apply for Batch 2026</span>
               <div className="absolute inset-0 bg-gray-200 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
-            </button>
+            </a>
           </div>
 
           <div className="grid grid-cols-2 gap-8 text-lg">
             <div className="space-y-4">
               <h4 className="text-sm uppercase tracking-widest text-[#666] mb-6">Explore</h4>
-              {['Events', 'Community', 'Stories'].map(item => (
+              {['Events', 'Community', 'About'].map(item => (
                 <Link key={item} href={`/${item.toLowerCase()}`} className="block text-gray-400 hover:text-white transition-colors hover:translate-x-2 duration-300">
                   {item}
                 </Link>

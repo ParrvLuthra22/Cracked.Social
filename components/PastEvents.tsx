@@ -5,11 +5,11 @@ const samplePast = [
   { title: 'Founders Meetup', date: 'Nov 2025' },
 ]
 
-export default function PastEvents(){
+export default function PastEvents() {
   const [open, setOpen] = useState(false)
   return (
     <div className="mt-6">
-      <button onClick={()=>setOpen(o=>!o)} className="text-sm text-gray-300 smooth">{open ? 'Hide Past Events' : 'Show Past Events'}</button>
+      <button onClick={() => setOpen(o => !o)} className="text-sm text-gray-300 smooth">{open ? 'Hide Past Events' : 'Show Past Events'}</button>
       <AnimatePresence>
         {open && (
           <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.35 }} className="mt-4 overflow-hidden">
